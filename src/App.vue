@@ -36,17 +36,29 @@ import { MDCRipple } from '@material/ripple'
 import UiButton from 'keen-ui/src/UiButton.vue'
 
 export default {
+  data () {
+    return {
+      ripple1: null,
+      ripple2: null
+    }
+  },
   components: {
     MDCToolbar, UiButton
   },
   mounted () {
-    MDCRipple.attachTo(document.querySelector('#b1'))
-    MDCRipple.attachTo(document.querySelector('#b2'))
+    this.ripple1 = new MDCRipple(document.querySelector('#b1'))
+    this.ripple2 = new MDCRipple(document.querySelector('#b2'))
+    console.log('mounted #b1, #b2')
   },
   methods: {
     goto (loc) {
       this.$router.push(loc)
     }
+  },
+  beforeDestroy () {
+    this.ripple1.destroy()
+    this.ripple2.destroy()
+    console.log('destroyed #b1 #b2')
   }
 }
 </script>
